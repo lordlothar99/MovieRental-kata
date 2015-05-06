@@ -1,4 +1,4 @@
-package movierental.v1;
+package com.movierental;
 
 public class Rental {
 	private Movie _movie;

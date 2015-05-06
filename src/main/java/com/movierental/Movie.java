@@ -1,4 +1,4 @@
-package movierental.v1;
+package com.movierental;
 
 public class Movie {
 	public static final int REGULAR = 0;
