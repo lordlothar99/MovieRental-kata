@@ -1,16 +1,13 @@
 package com.movierental;
 
-import static com.movierental.AssertionBuilder.expectAmountOwed;
-import static com.movierental.AssertionBuilder.movie;
+import static com.movierental.RentalAssertionBuilder.expectAmountOwed;
+import static com.movierental.RentalAssertionBuilder.rent;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,21 +34,50 @@ public class MovieRentalTest {
 	public static Collection<Object[]> getRentalsAssertions() {
 		return Arrays.asList(new Object[][] { //
 
-				expectAmountOwed(3.5).andPoints(1).forRentals(//
-						movie(TRANSFORMERS).during(3).days()), //
+				expectAmountOwed(2).andPoints(1).forRentals(//
+						rent(TRANSFORMERS).during(1).days()), //
 
 						expectAmountOwed(2).andPoints(1).forRentals(//
-								movie(TRANSFORMERS).during(1).days()), //
+								rent(TRANSFORMERS).during(2).days()), //
+
+						expectAmountOwed(3.5).andPoints(1).forRentals(//
+								rent(TRANSFORMERS).during(3).days()), //
+
+						expectAmountOwed(5).andPoints(1).forRentals(//
+								rent(TRANSFORMERS).during(4).days()), //
 
 						expectAmountOwed(1.5).andPoints(1).forRentals(//
-								movie(NEMO).during(3).days()), //
+								rent(NEMO).during(1).days()), //
 
-						expectAmountOwed(9.0).andPoints(2).forRentals(//
-								movie(DIE_HARD_4).during(3).days()), //
+						expectAmountOwed(1.5).andPoints(1).forRentals(//
+								rent(NEMO).during(2).days()), //
+
+						expectAmountOwed(1.5).andPoints(1).forRentals(//
+								rent(NEMO).during(3).days()), //
+
+						expectAmountOwed(3).andPoints(1).forRentals(//
+								rent(NEMO).during(4).days()), //
+
+						expectAmountOwed(4.5).andPoints(1).forRentals(//
+								rent(NEMO).during(5).days()), //
+
+						expectAmountOwed(3).andPoints(1).forRentals(//
+								rent(DIE_HARD_4).during(1).days()), //
+
+						expectAmountOwed(6).andPoints(2).forRentals(//
+								rent(DIE_HARD_4).during(2).days()), //
+
+						expectAmountOwed(9).andPoints(2).forRentals(//
+								rent(DIE_HARD_4).during(3).days()), //
 
 						expectAmountOwed(5).andPoints(2).forRentals(//
-								movie(TRANSFORMERS).during(3).days(), //
-								movie(NEMO).during(3).days()), //
+								rent(TRANSFORMERS).during(3).days(), //
+								rent(NEMO).during(3).days()), //
+
+						expectAmountOwed(32).andPoints(4).forRentals(//
+								rent(TRANSFORMERS).during(7).days(), //
+								rent(NEMO).during(5).days(), //
+								rent(DIE_HARD_4).during(6).days()), //
 				});
 	}
 
@@ -64,40 +90,28 @@ public class MovieRentalTest {
 	}
 
 	@Test
-	public void should_customer_be_correct() {
+	public void should_customer_name_be_the_one_who_rented_movies() {
 		String statement = customer.statement();
 		assertThat(statement, containsString("Rental Record for " + customer.getName() + "\n"));
 	}
 
 	@Test
-	public void should_rented_movies_be_correct() {
+	public void should_rented_movies_names_be_those_which_were_rented() {
 		String statement = customer.statement();
-		assertThat(statement, rentedMoviesAre(rentals.toMovies()));
+		for (Rental rental : rentals) {
+			assertThat(statement, containsString("\t" + rental.getMovie().getTitle() + "\t"));
+		}
 	}
 
 	@Test
-	public void should_renter_points_be_correct() {
+	public void should_renter_points_be_well_calculated() {
 		String statement = customer.statement();
 		assertThat(statement, containsString("You earned " + points + " frequent renter points"));
 	}
 
 	@Test
-	public void should_amount_owed_be_correct() {
+	public void should_amount_owed_be_well_calculated() {
 		String statement = customer.statement();
-
-		// String expected = "Rental Record for Alice\n" + "\tTransformers\t3.5\n" +
-		// "Amount owed is 3.5\n"
-		// + "You earned 1 frequent renter points";
-		// Assert.assertEquals(expected, statement);
-
 		assertThat(statement, containsString("Amount owed is " + amountOwed + "\n"));
-	}
-
-	private static Matcher<String> rentedMoviesAre(Movie... movies) {
-		Collection<Matcher<? super String>> movieMatchers = new ArrayList<>();
-		for (Movie movie : movies) {
-			movieMatchers.add(containsString("\t" + movie.getTitle() + "\t"));
-		}
-		return Matchers.allOf(movieMatchers);
 	}
 }

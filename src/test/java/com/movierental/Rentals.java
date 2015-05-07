@@ -24,14 +24,4 @@ public class Rentals extends ArrayList<Rental> {
 		}
 		return string;
 	}
-
-	public Movie[] toMovies() {
-		Movie[] movies = new Movie[this.size()];
-		for (int i = 0; i < this.size(); i++) {
-			Rental rental = this.get(i);
-			movies[i] = rental.getMovie();
-		}
-		return movies;
-
-	}
 }
