@@ -18,9 +18,9 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class MovieRentalTest {
 
-	private static final Movie TRANSFORMERS = new Movie("Transformers", Movie.REGULAR);
-	private static final Movie NEMO = new Movie("Nemo", Movie.CHILDRENS);
-	private static final Movie DIE_HARD_4 = new Movie("Die Hard 4", Movie.NEW_RELEASE);
+	private static final Movie TRANSFORMERS = new RegularMovie("Transformers");
+	private static final Movie NEMO = new ChildrenMovie("Nemo");
+	private static final Movie DIE_HARD_4 = new NewReleaseMovie("Die Hard 4");
 
 	private Customer customer;
 	@Parameter(0)
@@ -87,17 +87,18 @@ public class MovieRentalTest {
 		for (Rental rental : rentals) {
 			customer.addRental(rental);
 		}
+		System.out.println(customer.getRentalsRecord());
 	}
 
 	@Test
 	public void should_customer_name_be_the_one_who_rented_movies() {
-		String statement = customer.statement();
+		String statement = customer.getRentalsRecord();
 		assertThat(statement, containsString("Rental Record for " + customer.getName() + "\n"));
 	}
 
 	@Test
 	public void should_rented_movies_names_be_those_which_were_rented() {
-		String statement = customer.statement();
+		String statement = customer.getRentalsRecord();
 		for (Rental rental : rentals) {
 			assertThat(statement, containsString("\t" + rental.getMovie().getTitle() + "\t"));
 		}
@@ -105,13 +106,13 @@ public class MovieRentalTest {
 
 	@Test
 	public void should_renter_points_be_well_calculated() {
-		String statement = customer.statement();
+		String statement = customer.getRentalsRecord();
 		assertThat(statement, containsString("You earned " + points + " frequent renter points"));
 	}
 
 	@Test
 	public void should_amount_owed_be_well_calculated() {
-		String statement = customer.statement();
+		String statement = customer.getRentalsRecord();
 		assertThat(statement, containsString("Amount owed is " + amountOwed + "\n"));
 	}
 }
