@@ -1,7 +1,7 @@
 package com.movierental;
 
-import static com.movierental.RentalAssertionBuilder.expectAmountOwed;
 import static com.movierental.RentalAssertionBuilder.rentalOf;
+import static com.movierental.RentalAssertionBuilder.should;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -34,47 +34,47 @@ public class MovieRentalTest {
     public static Collection<Object[]> getRentalsAssertions() {
         return Arrays.asList(new Object[][] { //
 
-                expectAmountOwed(2).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(2).pointsEarnedEqual(1).forRentals(//
                         rentalOf(TRANSFORMERS).during(1).days()), //
 
-                expectAmountOwed(2).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(2).pointsEarnedEqual(1).forRentals(//
                         rentalOf(TRANSFORMERS).during(2).days()), //
 
-                expectAmountOwed(3.5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(3.5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(TRANSFORMERS).during(3).days()), //
 
-                expectAmountOwed(5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(TRANSFORMERS).during(4).days()), //
 
-                expectAmountOwed(1.5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(1.5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(NEMO).during(1).days()), //
 
-                expectAmountOwed(1.5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(1.5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(NEMO).during(2).days()), //
 
-                expectAmountOwed(1.5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(1.5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(NEMO).during(3).days()), //
 
-                expectAmountOwed(3).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(3).pointsEarnedEqual(1).forRentals(//
                         rentalOf(NEMO).during(4).days()), //
 
-                expectAmountOwed(4.5).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(4.5).pointsEarnedEqual(1).forRentals(//
                         rentalOf(NEMO).during(5).days()), //
 
-                expectAmountOwed(3).andPointsEarned(1).forRentals(//
+                should().amountOwedEqual(3).pointsEarnedEqual(1).forRentals(//
                         rentalOf(DIE_HARD_4).during(1).days()), //
 
-                expectAmountOwed(6).andPointsEarned(2).forRentals(//
+                should().amountOwedEqual(6).pointsEarnedEqual(2).forRentals(//
                         rentalOf(DIE_HARD_4).during(2).days()), //
 
-                expectAmountOwed(9).andPointsEarned(2).forRentals(//
+                should().amountOwedEqual(9).pointsEarnedEqual(2).forRentals(//
                         rentalOf(DIE_HARD_4).during(3).days()), //
 
-                expectAmountOwed(5).andPointsEarned(2).forRentals(//
+                should().amountOwedEqual(5).pointsEarnedEqual(2).forRentals(//
                         rentalOf(TRANSFORMERS).during(3).days(), //
                         rentalOf(NEMO).during(3).days()), //
 
-                expectAmountOwed(32).andPointsEarned(4).forRentals(//
+                should().amountOwedEqual(32).pointsEarnedEqual(4).forRentals(//
                         rentalOf(TRANSFORMERS).during(7).days(), //
                         rentalOf(NEMO).during(5).days(), //
                         rentalOf(DIE_HARD_4).during(6).days()), //
