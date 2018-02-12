@@ -3,7 +3,7 @@ package com.movierental;
 public class RentalAssertionBuilder {
 
 	private final double amountOwed;
-	private int points;
+	private int pointsEarned;
 
 	public RentalAssertionBuilder(double amountOwed) {
 		this.amountOwed = amountOwed;
@@ -13,16 +13,16 @@ public class RentalAssertionBuilder {
 		return new RentalAssertionBuilder(amountOwed);
 	}
 
-	public static RentalBuilder rent(Movie movie) {
+	public static RentalBuilder rentalOf(Movie movie) {
 		return new RentalBuilder(movie);
 	}
 
 	public Object[] forRentals(Rental... rentals) {
-		return new Object[] { new Rentals(rentals), amountOwed, points };
+		return new Object[] { new Rentals(rentals), amountOwed, pointsEarned };
 	}
 
-	public RentalAssertionBuilder andPoints(int points) {
-		this.points = points;
+	public RentalAssertionBuilder andPointsEarned(int pointsEarned) {
+		this.pointsEarned = pointsEarned;
 		return this;
 	}
 
